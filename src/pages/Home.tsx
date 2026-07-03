@@ -1,7 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import ProjectsSection from '../components/ProjectsSection'
 
 export default function Home(){
+  const navigate = useNavigate()
+
   return (
     <>
       <div className="card">
@@ -22,7 +25,10 @@ export default function Home(){
         </div>
       </div>
 
-      <ProjectsSection />
+      <ProjectsSection
+        onContribute={() => navigate('/payments?purpose=Project+Donation')}
+        onDonate={() => navigate('/payments?purpose=Project+Donation')}
+      />
     </>
   )
 }

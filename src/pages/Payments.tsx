@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { addPayment, findMemberByEmail, registerMember } from '../services/mockService'
 
+const purposeOptions = ['Membership', 'Insurance', 'Sacco', 'Project Donation'] as const
+type Purpose = typeof purposeOptions[number]
+
 export default function Payments(){
+  const [searchParams] = useSearchParams()
+  const requestedPurpose = searchParams.get('purpose')
+  const initialPurpose: Purpose = purposeOptions.includes(requestedPurpose as Purpose) ? (requestedPurpose as Purpose) : 'Membership'
+
   const [name,setName]=useState('')
   const [email,setEmail]=useState('')
   const [phone,setPhone]=useState('')
   const [years,setYears]=useState('')
   const [amount,setAmount]=useState('20000')
-  const [purpose,setPurpose]=useState<'Membership'|'Insurance'|'Sacco'|'Project Donation'>('Membership')
+  const [purpose,setPurpose]=useState<Purpose>(initialPurpose)
   const [method,setMethod]=useState<'mpesa'|'mtn'|'airtel'|'card'>('mpesa')
 
   const submit = async (e:React.FormEvent)=>{
@@ -112,19 +120,11 @@ export default function Payments(){
           <input value={amount} onChange={e=>setAmount(e.target.value)} placeholder="20000" />
 
           <label style={{marginTop:8}}>Payment method</label>
-          <div>
-            <label style={{display:'inline-flex',alignItems:'center',gap:8}}>
-              <input type="radio" checked={method==='mpesa'} onChange={()=>setMethod('mpesa')} /> M-Pesa
-            </label>
-            <label style={{marginLeft:12,display:'inline-flex',alignItems:'center',gap:8}}>
-              <input type="radio" checked={method==='mtn'} onChange={()=>setMethod('mtn')} /> MTN
-            </label>
-            <label style={{marginLeft:12,display:'inline-flex',alignItems:'center',gap:8}}>
-              <input type="radio" checked={method==='airtel'} onChange={()=>setMethod('airtel')} /> Airtel
-            </label>
-            <label style={{marginLeft:12,display:'inline-flex',alignItems:'center',gap:8}}>
-              <input type="radio" checked={method==='card'} onChange={()=>setMethod('card')} /> Card
-            </label>
+          <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+            <button type="button" className={`field-btn${method==='mpesa' ? ' active' : ''}`} onClick={()=>setMethod('mpesa')}>M-Pesa</button>
+            <button type="button" className={`field-btn${method==='mtn' ? ' active' : ''}`} onClick={()=>setMethod('mtn')}>MTN</button>
+            <button type="button" className={`field-btn${method==='airtel' ? ' active' : ''}`} onClick={()=>setMethod('airtel')}>Airtel</button>
+            <button type="button" className={`field-btn${method==='card' ? ' active' : ''}`} onClick={()=>setMethod('card')}>Card</button>
           </div>
 
           {(method==='mpesa' || method==='mtn' || method==='airtel') && (

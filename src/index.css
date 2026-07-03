@@ -63,6 +63,9 @@ input,textarea,select{width:100%;padding:8px;border:1px solid #e5e7eb;border-rad
 .btn{background:var(--primary);color:white;padding:8px 12px;border-radius:6px;border:none;cursor:pointer}
 .btn:disabled{opacity:.6;cursor:not-allowed}
 .btn.secondary{background:#eef2ff;color:var(--primary);border:1px solid rgba(11,95,255,.08)}
+
+.field-btn{background:#eef2ff;color:var(--primary);padding:8px 14px;border-radius:6px;border:1px solid rgba(11,95,255,.12);cursor:pointer;font-weight:600;transition:background .15s ease,color .15s ease}
+.field-btn.active{background:var(--primary);color:white;border-color:var(--primary)}
 .muted{color:var(--muted)}
 .actions{margin-top:12px;display:flex;justify-content:flex-end}
 @media (max-width:720px){.actions{justify-content:center}}
