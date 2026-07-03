@@ -2,22 +2,36 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { registerMember } from '../services/mockService'
 
+const START_YEAR = 2002
+const CURRENT_YEAR = new Date().getFullYear()
+const YEAR_OPTIONS = Array.from({ length: CURRENT_YEAR - START_YEAR + 1 }, (_, i) => CURRENT_YEAR - i)
+
 export default function Register(){
   const [name,setName]=useState('')
   const [email,setEmail]=useState('')
   const [phone,setPhone]=useState('')
-  const [years,setYears]=useState('')
+  const [yearFrom,setYearFrom]=useState('')
+  const [yearTo,setYearTo]=useState('')
+  const [profession,setProfession]=useState('')
+  const [hasBusiness,setHasBusiness]=useState(false)
+  const [businessName,setBusinessName]=useState('')
+  const [businessDescription,setBusinessDescription]=useState('')
   const nav = useNavigate()
 
   const submit = async (e:React.FormEvent)=>{
     e.preventDefault()
     if(!name||!email) return alert('Provide name and email')
+    const yearsAtECI = yearFrom && yearTo ? `${yearFrom}-${yearTo}` : (yearFrom || yearTo || '')
     try{
       await registerMember({
         name,
         email,
         phone,
-        yearsAtECI: years,
+        yearsAtECI,
+        employment: profession,
+        hasBusiness,
+        businessName: hasBusiness ? businessName : undefined,
+        businessDescription: hasBusiness ? businessDescription : undefined,
       })
       alert('Registered successfully. Your details have been added to the members list.')
       nav('/members')
@@ -37,8 +51,42 @@ export default function Register(){
         <input value={email} onChange={e=>setEmail(e.target.value)} />
         <label>Phone</label>
         <input value={phone} onChange={e=>setPhone(e.target.value)} />
+
         <label>Years at ECI</label>
-        <input placeholder="e.g. 2008-2012" value={years} onChange={e=>setYears(e.target.value)} />
+        <div style={{display:'flex', gap:12}}>
+          <div style={{flex:1}}>
+            <label style={{fontSize:12, color:'#6b7280'}}>From</label>
+            <select value={yearFrom} onChange={e=>setYearFrom(e.target.value)}>
+              <option value="">Select year</option>
+              {YEAR_OPTIONS.map(y=> <option key={y} value={y}>{y}</option>)}
+            </select>
+          </div>
+          <div style={{flex:1}}>
+            <label style={{fontSize:12, color:'#6b7280'}}>To</label>
+            <select value={yearTo} onChange={e=>setYearTo(e.target.value)}>
+              <option value="">Select year</option>
+              {YEAR_OPTIONS.map(y=> <option key={y} value={y}>{y}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <label>Profession/Career</label>
+        <input placeholder="e.g. Accountant, Software Engineer" value={profession} onChange={e=>setProfession(e.target.value)} />
+
+        <label style={{display:'flex', alignItems:'center', gap:8, marginTop:8}}>
+          <input type="checkbox" checked={hasBusiness} onChange={e=>setHasBusiness(e.target.checked)} />
+          I own a business
+        </label>
+
+        {hasBusiness && (
+          <div style={{marginTop:8}}>
+            <label>Business name</label>
+            <input placeholder="e.g. ACME Enterprises" value={businessName} onChange={e=>setBusinessName(e.target.value)} />
+            <label>What does your business do?</label>
+            <input placeholder="e.g. Retail and wholesale of electronics" value={businessDescription} onChange={e=>setBusinessDescription(e.target.value)} />
+          </div>
+        )}
+
         <div className="actions"><button className="btn">Submit registration</button></div>
       </form>
     </div>
