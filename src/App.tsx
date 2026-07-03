@@ -1,37 +1,70 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import Register from './pages/Register'
-import Dashboard from './pages/Dashboard'
-import MembersList from './pages/MembersList'
-import Payments from './pages/Payments'
-import JobBoard from './pages/JobBoard'
-import Header from './components/Header'
-import Community from './pages/Community'
-import Leaders from './pages/Leaders'
-import Resources from './pages/Resources'
-import Projects from './pages/Projects'
-import MemberProfile from './pages/MemberProfile'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-export default function App(){
+import Header from './components/Header';
+
+import Home from './pages/Home';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import MembersList from './pages/MembersList';
+import MemberProfile from './pages/MemberProfile';
+import Payments from './pages/Payments';
+import Projects from './pages/Projects';
+import JobBoard from './pages/JobBoard';
+import Community from './pages/Community';
+import Leaders from './pages/Leaders';
+import Resources from './pages/Resources';
+
+export default function App() {
   return (
-    <div>
+    <>
       <Header />
+
       <div className="container">
         <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/members" element={<MembersList/>} />
-          <Route path="/members/:id" element={<MemberProfile/>} />
-          <Route path="/payments" element={<Payments/>} />
-          <Route path="/projects" element={<Projects/>} />
-          <Route path="/jobs" element={<JobBoard/>} />
-          <Route path="/community" element={<Community/>} />
-          <Route path="/resources" element={<Resources/>} />
-          <Route path="/leaders" element={<Leaders/>} />
+          {/* Home */}
+          <Route path="/" element={<Home />} />
+
+          {/* Registration */}
+          <Route path="/register" element={<Register />} />
+
+          {/* Dashboard */}
+          <Route path="/dashboard" element={<Dashboard />} />
+
+          {/* Members */}
+          <Route path="/members" element={<MembersList />} />
+          <Route path="/members/:id" element={<MemberProfile />} />
+
+          {/* Payments */}
+          <Route path="/payments" element={<Payments />} />
+
+          {/* Projects */}
+          <Route path="/projects" element={<Projects />} />
+
+          {/* Jobs */}
+          <Route path="/jobs" element={<JobBoard />} />
+
+          {/* Community */}
+          <Route path="/community" element={<Community />} />
+
+          {/* Leaders */}
+          <Route path="/leaders" element={<Leaders />} />
+
+          {/* Resources */}
+          <Route path="/resources" element={<Resources />} />
+
+          {/* 404 */}
+          <Route
+            path="*"
+            element={
+              <div style={{ padding: '2rem', textAlign: 'center' }}>
+                <h2>404 - Page Not Found</h2>
+                <p>The page you are looking for does not exist.</p>
+              </div>
+            }
+          />
         </Routes>
       </div>
-    </div>
-  )
+    </>
+  );
 }
