@@ -26,8 +26,9 @@ export default function MemberProfile(){
       <h3>{member.name}</h3>
       <div style={{color:'#6b7280'}}>Membership: {member.membershipNumber || member.id}</div>
       {member.yearsAtECI && <div style={{marginTop:6}}>Years at ECI: {member.yearsAtECI}</div>}
-      {member.employment && <div style={{marginTop:8}}>Employment: {member.employment}</div>}
-      {member.business && <div>Business: {member.business}</div>}
+      {member.employment && <div style={{marginTop:8}}>Profession/Career: {member.employment}</div>}
+      {member.hasBusiness && member.businessName && <div>Business: {member.businessName}{member.businessDescription ? ` — ${member.businessDescription}` : ''}</div>}
+      {!member.hasBusiness && member.business && <div>Business: {member.business}</div>}
       {member.location && <div>Location: {member.location}</div>}
 
       <h4 style={{marginTop:12}}>Recent posts</h4>

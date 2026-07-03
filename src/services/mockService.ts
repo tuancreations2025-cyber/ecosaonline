@@ -6,6 +6,9 @@ export type Member = {
   universities?: string[]
   employment?: string
   business?: string
+  hasBusiness?: boolean
+  businessName?: string
+  businessDescription?: string
   location?: string
   yearsAtECI?: string
   membershipNumber?: string

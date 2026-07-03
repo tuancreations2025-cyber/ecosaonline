@@ -9,14 +9,14 @@ type Project = {
 
 const featuredProjects: Project[] = [
   {
-    title: 'Alumni Scholarship Fund',
-    description: 'Support current students with tuition, mentorship, and career coaching.',
+    title: 'ECOSA SACCO',
+    description: 'A member-owned savings and credit cooperative helping alumni save, access loans, and build financial security together.',
     status: 'Ongoing',
     featured: true,
   },
   {
-    title: 'Community Health Drive',
-    description: 'Fund medical camps, clean water projects and health education for alumni families.',
+    title: 'ECOSA Medical Insurance',
+    description: 'Affordable group medical cover for alumni and their families, providing access to quality healthcare when it matters most.',
     status: 'Ongoing',
     featured: true,
   },
@@ -24,6 +24,16 @@ const featuredProjects: Project[] = [
 
 const allProjects: Project[] = [
   ...featuredProjects,
+  {
+    title: 'Alumni Scholarship Fund',
+    description: 'Support current students with tuition, mentorship, and career coaching.',
+    status: 'Ongoing',
+  },
+  {
+    title: 'Community Health Drive',
+    description: 'Fund medical camps, clean water projects and health education for alumni families.',
+    status: 'Ongoing',
+  },
   {
     title: 'Library Renovation',
     description: 'Upgrade the college library with new books, furniture and study spaces.',
